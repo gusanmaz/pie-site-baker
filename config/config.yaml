@@ -1,0 +1,19 @@
+site_name: My Awesome Website
+author: John Doe
+style:
+  theme: light
+  accent_color: '#007bff'
+  font: 'Arial, sans-serif'
+  code_highlight_theme: 'atom-one-light'
+social_media:
+  github: https://github.com/johndoe
+  twitter: https://twitter.com/johndoe
+  linkedin: https://www.linkedin.com/in/johndoe
+navigation:
+  - name: Home
+    url: index.html
+  - name: Blog
+    url: blog/index.html
+  - name: Resume
+    url: resume.html
+url_prefix: ''

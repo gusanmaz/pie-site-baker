@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>"Getting Started with Docker" - My Awesome Website</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="../assets/css/custom.css" rel="stylesheet">
+    <style>
+        :root {
+            --bs-primary: #007bff;
+        }
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .social-icons {
+            font-size: 1.5rem;
+        }
+        .social-icons a {
+            color: var(--bs-primary);
+            margin-right: 0.5rem;
+        }
+    </style>
+    <script>
+        // Set initial theme to avoid flash of unstyled content
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-bs-theme', savedTheme);
+    </script>
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-light.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+<style>
+    .blog-content img {
+        max-width: 100%;
+        height: auto;
+    }
+    .blog-content pre {
+        padding: 1rem;
+        border-radius: 0.25rem;
+        overflow-x: auto;
+    }
+    .blog-content code {
+        font-family: 'Courier New', Courier, monospace;
+    }
+</style>
+
+</head>
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-primary fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">My Awesome Website</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html">Home</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="../blog/index.html">Blog</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="../resume.html">Resume</a>
+                    </li>
+                    
+                </ul>
+                <button id="darkModeToggle" class="btn btn-outline-light">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mt-5 pt-5">
+        
+<article class="container mt-5">
+    <header class="mb-4">
+        <h1 class="display-4">"Getting Started with Docker"</h1>
+        <p class="text-muted">
+            <small>
+                <i class="far fa-calendar-alt"></i> August 09, 2023
+                
+                    | <i class="fas fa-user"></i> "John Doe"
+                
+            </small>
+        </p>
+    </header>
+
+    <div class="blog-content">
+        <p>Docker has become an essential tool in modern software development. In this post, we'll cover the basics of Docker and how to get started with containerizing your applications.</p>
+<h2>What is Docker?</h2>
+<p>Docker is a platform for developing, shipping, and running applications in containers. Containers are lightweight, standalone, executable packages that include everything needed to run a piece of software, including the code, runtime, system tools, libraries, and settings.</p>
+<h2>Why Use Docker?</h2>
+<ol>
+<li><strong>Consistency</strong>: Docker ensures that your application runs the same way in every environment.</li>
+<li><strong>Isolation</strong>: Containers are isolated from each other and the host system, improving security.</li>
+<li><strong>Efficiency</strong>: Containers share the host OS kernel, making them more lightweight than virtual machines.</li>
+<li><strong>Scalability</strong>: Docker makes it easy to scale applications up or down quickly.</li>
+</ol>
+<h2>Getting Started</h2>
+<h3>1. Install Docker</h3>
+<p>First, you need to install Docker on your machine. Visit the <a href="https://www.docker.com/get-started">official Docker website</a> and follow the installation instructions for your operating system.</p>
+<h3>2. Create a Dockerfile</h3>
+<p>A Dockerfile is a text document that contains all the commands a user could call on the command line to assemble an image. Here's a simple example for a Node.js application:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">FROM</span><span class="w"> </span><span class="s">node:14</span>
+<span class="k">WORKDIR</span><span class="w"> </span><span class="s">/usr/src/app</span>
+<span class="k">COPY</span><span class="w"> </span>package*.json<span class="w"> </span>./
+<span class="k">RUN</span><span class="w"> </span>npm<span class="w"> </span>install
+<span class="k">COPY</span><span class="w"> </span>.<span class="w"> </span>.
+<span class="k">EXPOSE</span><span class="w"> </span><span class="s">8080</span>
+<span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s2">&quot;node&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;server.js&quot;</span><span class="w"> </span><span class="p">]</span>
+</code></pre></div>
+
+<h3>3. Build Your Docker Image</h3>
+<p>To build your Docker image, run the following command in the same directory as your Dockerfile:</p>
+<div class="codehilite"><pre><span></span><code>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>my-node-app<span class="w"> </span>.
+</code></pre></div>
+
+<h3>4. Run Your Docker Container</h3>
+<p>Now you can run your application in a container:</p>
+<div class="codehilite"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">8080</span>:8080<span class="w"> </span>my-node-app
+</code></pre></div>
+
+<p>This command runs your container and maps port 8080 of the container to port 8080 on your host machine.</p>
+<h2>Conclusion</h2>
+<p>This is just the beginning of what you can do with Docker. As you become more comfortable with these basics, you can explore more advanced topics like Docker Compose for multi-container applications, Docker Swarm for orchestration, and integrating Docker into your CI/CD pipeline.</p>
+<p>In future posts, we'll dive deeper into best practices for Dockerizing different types of applications and how to optimize your Docker workflows. Stay tuned!</p>
+    </div>
+
+   <div class="mt-5">
+        <a href="index.html" class="btn btn-primary">&larr; Back to Blog</a>
+    </div>
+</article>
+
+
+
+    </main>
+
+    <footer class="container mt-5">
+        <hr>
+        <div class="row">
+            <div class="col-md-6">
+                <p>&copy; John Doe - My Awesome Website</p>
+            </div>
+            <div class="col-md-6 text-end social-icons">
+                
+                <a href="https://github.com/johndoe" target="_blank"><i class="fab fa-github"></i></a>
+                
+                
+                <a href="https://twitter.com/johndoe" target="_blank"><i class="fab fa-twitter"></i></a>
+                
+                
+                <a href="https://www.linkedin.com/in/johndoe" target="_blank"><i class="fab fa-linkedin"></i></a>
+                
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const htmlElement = document.documentElement;
+
+        function setTheme(theme) {
+            htmlElement.setAttribute('data-bs-theme', theme);
+            localStorage.setItem('theme', theme);
+            darkModeToggle.innerHTML = theme === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+        }
+
+        if (darkModeToggle) {
+            darkModeToggle.addEventListener('click', () => {
+                const currentTheme = htmlElement.getAttribute('data-bs-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                setTheme(newTheme);
+            });
+        }
+
+        // Set initial button state
+        setTheme(savedTheme);
+    </script>
+    
+
+
+</body>
+</html>

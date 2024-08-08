@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <header class="text-center mb-5">
+        <h1 class="display-4">{{ resume.basics.name }}</h1>
+        <p class="lead">{{ resume.basics.label }}</p>
+        <div>
+            <i class="fas fa-envelope text-primary"></i> {{ resume.basics.email }} |
+            <i class="fas fa-phone text-primary"></i> {{ resume.basics.phone }} |
+            <i class="fas fa-map-marker-alt text-primary"></i> {{ resume.basics.location.city }}, {{ resume.basics.location.region }}
+        </div>
+        <div class="social-icons mt-3">
+            {% for profile in resume.basics.profiles %}
+                <a href="{{ profile.url }}" target="_blank" class="text-primary"><i class="fab fa-{{ profile.network.lower() }} fa-2x mx-2"></i></a>
+            {% endfor %}
+        </div>
+    </header>
+
+    <section class="mb-5">
+        <h2 class="section-title text-primary">Summary</h2>
+        <p>{{ resume.basics.summary }}</p>
+    </section>
+
+    <section class="mb-5">
+        <h2 class="section-title text-primary">Work Experience</h2>
+        <ul class="list-unstyled">
+            {% for job in resume.work %}
+            <li class="mb-4">
+                <h5 class="font-weight-bold">{{ job.position }}</h5>
+                <div><strong>{{ job.name }}</strong>, {{ job.location }}</div>
+                <div class="text-muted">
+                    <i class="far fa-calendar-alt"></i> {{ job.startDate }} - {{ job.endDate }}
+                </div>
+                <p>{{ job.summary }}</p>
+                {% if job.highlights %}
+                <ul>
+                    {% for highlight in job.highlights %}
+                    <li>{{ highlight }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    <section class="mb-5">
+        <h2 class="section-title text-primary">Education</h2>
+        <ul class="list-unstyled">
+            {% for edu in resume.education %}
+            <li class="mb-3">
+                <h5 class="font-weight-bold">{{ edu.studyType }} in {{ edu.area }}</h5>
+                <div><strong>{{ edu.institution }}</strong>, {{ edu.location }}</div>
+                <div class="text-muted">
+                    <i class="far fa-calendar-alt"></i> {{ edu.startDate }} - {{ edu.endDate }}
+                </div>
+                {% if edu.score %}
+                <div>GPA: <span class="font-weight-bold">{{ edu.score }}</span></div>
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    <section class="mb-5">
+        <h2 class="section-title text-primary">Skills</h2>
+        <ul>
+            {% for skill in resume.skills %}
+            <li>
+                <strong class="text-secondary">{{ skill.name }}:</strong> {{ skill.keywords|join(', ') }}
+            </li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    {% if resume.languages %}
+    <section class="mb-5">
+        <h2 class="section-title text-primary">Languages</h2>
+        <ul>
+            {% for lang in resume.languages %}
+            <li>
+                <strong class="text-secondary">{{ lang.language }}:</strong> {{ lang.fluency }}
+            </li>
+            {% endfor %}
+        </ul>
+    </section>
+    {% endif %}
+
+    {% if resume.interests %}
+    <section class="mb-5">
+        <h2 class="section-title text-primary">Interests</h2>
+        <ul>
+            {% for interest in resume.interests %}
+            <li>
+                <strong class="text-secondary">{{ interest.name }}:</strong> {{ interest.keywords|join(', ') }}
+            </li>
+            {% endfor %}
+        </ul>
+    </section>
+    {% endif %}
+</div>
+{% endblock %}
